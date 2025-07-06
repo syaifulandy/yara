@@ -54,7 +54,7 @@ awk -F, '!seen[$2]++' "$INTERMEDIATE_CSV" | while IFS=, read -r TARGET MD5; do
 
   echo "$RESPONSE" > "response_${MD5}.json"
 
-  echo "$RESPONSE" | jq -r --arg target "$TARGET" '
+  echo "$RESPONSE" | jq -r --arg target "$TARGET" --arg md5 "$MD5" '
     if .data then
       [
         $target,
@@ -67,7 +67,7 @@ awk -F, '!seen[$2]++' "$INTERMEDIATE_CSV" | while IFS=, read -r TARGET MD5; do
         (.data.attributes.popular_threat_classification.popular_threat_category // [] | map(.value) | join(";"))
       ]
     else
-      [$target, "-", "-", "-", "-", "-", "-", "-"]
+      [$target, $md5, "-", "-", "-", "-", "-", "-"]
     end | @csv' >> "$FINAL_CSV"
 
   sleep 15
