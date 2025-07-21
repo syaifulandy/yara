@@ -9,7 +9,7 @@ INPUT_TEXT="$1"
 BASENAME_INPUT=$(basename "$INPUT_TEXT" .txt | sed 's/Report_scan_dump_memory_//')
 INTERMEDIATE_CSV="target_md5_${BASENAME_INPUT}.csv"
 FINAL_CSV="hasil_virustotal_${BASENAME_INPUT}.csv"
-API_KEY_FILE="api_key_virtot.txt"
+API_KEY_FILE="/mnt/api_key_virtot.txt"
 
 # Validasi file input
 if [[ ! -f "$INPUT_TEXT" ]]; then
